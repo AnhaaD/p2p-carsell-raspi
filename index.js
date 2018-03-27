@@ -6,6 +6,7 @@ AWS.config.update({region:'us-east-1'});
 const rekognition = new AWS.Rekognition();
 const sns = new AWS.SNS();
 const s3 = new AWS.S3();
+const PythonShell = require('python-shell');
 
 zbar = new Zbar('/dev/video1'); // connected to USB Webcam not Pi Cam
 
