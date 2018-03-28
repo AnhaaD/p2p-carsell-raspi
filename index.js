@@ -17,7 +17,7 @@ const fs =require('fs');
 const thingShadows = awsIot.thingShadow({
       keyPath: './certs/BlockChainGarage.private.key',
   certPath: './certs/BlockChainGarage.cert.pem',
-    caPath: 'r./certs/oot-CA.crt',
+    caPath: './certs/root-CA.crt',
   clientId: 'client12344567',
   region:'us-east-1',
   host:'a2c6vtfn7g8m57.iot.us-east-1.amazonaws.com'
