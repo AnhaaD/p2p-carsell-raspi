@@ -35,7 +35,7 @@ module.exports.openGarage = function(){
             }
          });
 
-});
+};
 
 
 module.exports.closeGarage = function(){
@@ -45,4 +45,4 @@ module.exports.closeGarage = function(){
            desired: {isDoorOpen:false}
         }
      });
-});
+};
