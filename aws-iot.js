@@ -24,11 +24,16 @@ thingShadows
         .on('delta', function(thingName, stateObject) {
            console.log('received delta on ' + thingName + ': ' +
               JSON.stringify(stateObject));
+              thingShadows.update(thingName, {
+                  state: {
+                     reported: stateObject.state
+                  }
+               });
 
         });
 
 module.exports.openGarage = function(){
-
+      console.log('called openGarage');
       thingShadows.update(thingName, {
             state: {
                desired: {isDoorOpen:true}
@@ -39,7 +44,7 @@ module.exports.openGarage = function(){
 
 
 module.exports.closeGarage = function(){
-
+  console.log('called closeGarage');
   thingShadows.update(thingName, {
         state: {
            desired: {isDoorOpen:false}

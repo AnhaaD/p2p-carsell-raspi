@@ -43,7 +43,7 @@ zbar.stdout.on('data', function(buf) {
                   //   },1000*60*5)
                   // });
 
-                },10000)
+                },1000)
 
                 sns.publish({
                             Message: 'Buyer has opened your garage. http://192.168.0.11:8081' ,
