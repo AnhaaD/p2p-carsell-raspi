@@ -26,6 +26,16 @@ zbar.stdout.on('data', function(buf) {
                 console.log('+++++++++++++++++++++++++++++++++++++++++++++');
                 console.log('Congratulations ! Your ownership is verified.');
                 console.log('+++++++++++++++++++++++++++++++++++++++++++++');
+
+                PythonShell.run('servo-360-open.py', function (err) {
+                  if (err) throw err;
+                  setTimeout(function(){
+                    PythonShell.run('servo-360-close.py', function (err) {
+                      if (err) throw err;
+                      console.log('finished');
+                    });
+                  },1000*60*5)
+                });
                 sns.publish({
                             Message: 'Buyer has opened your garage. http://192.168.0.11:8081' ,
                             TopicArn: 'arn:aws:sns:us-east-1:027378352884:raspiFaceTextMessage'
