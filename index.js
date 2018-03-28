@@ -21,24 +21,28 @@ zbar.stdout.on('data', function(buf) {
 
         if(!err){
             if(data){
-                speaker.speak('Congratulations ! Your ownership is verified. '+
+                speaker.speak('Your ownership is verified successfully. Garage will open now. '+
                 'You are being watched for security reasons.');
                 console.log('+++++++++++++++++++++++++++++++++++++++++++++');
                 console.log('Congratulations ! Your ownership is verified.');
                 console.log('+++++++++++++++++++++++++++++++++++++++++++++');
 
+                setTimeout(function(){
+
+                },5000)
                 PythonShell.run('servo-360-open.py', function (err) {
                   if (err) throw err;
                   setTimeout(function(){
+                    speaker.speak('Garage is closing');
                     PythonShell.run('servo-360-close.py', function (err) {
                       if (err) throw err;
-                      console.log('finished');
+                      console.log('door closed');
                     });
                   },1000*60*5)
                 });
                 sns.publish({
                             Message: 'Buyer has opened your garage. http://192.168.0.11:8081' ,
-                            TopicArn: 'arn:aws:sns:us-east-1:027378352884:raspiFaceTextMessage'
+                            TopicArn: 'arn:aws:sns:us-east-1:027378352884:p2pCarSell'
                           }, function (err, data) {
                             if(err){
 
@@ -55,7 +59,7 @@ zbar.stdout.on('data', function(buf) {
                 console.log('+++++++++++++++++++++++++++++++++++++++++++++');
                 sns.publish({
                             Message: 'Someone trying to steal your car. http://192.168.0.11:8081' ,
-                            TopicArn: 'arn:aws:sns:us-east-1:027378352884:raspiFaceTextMessage'
+                            TopicArn: 'arn:aws:sns:us-east-1:027378352884:p2pCarSell'
                           }, function (err, data) {
                             if(err){
 
