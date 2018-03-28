@@ -25,72 +25,7 @@ const thingShadows = awsIot.thingShadow({
 const thingName ='BlockChainGarage';
 var clientTokenUpdate;
 
-console.log('scan your qr code');
-zbar.stdout.on('data', function(buf) {
-  console.log('data scanned : ' + buf.toString());
-  try {
-    var code = JSON.parse(buf.toString());
-    verifier.verify(code,function(err,data){
 
-        if(!err){
-            if(data){
-                speaker.speak('Congratulations ! Your ownership is verified. '+
-                'You are being watched for security reasons.');
-                console.log('+++++++++++++++++++++++++++++++++++++++++++++');
-                console.log('Congratulations ! Your ownership is verified.');
-                console.log('+++++++++++++++++++++++++++++++++++++++++++++');
-
-                thingShadows.update(thingName, {
-                   state: {
-                      desired: {isDoorOpen: true}
-                   }
-                });
-
-                sns.publish({
-                            Message: 'Buyer has opened your garage. http://192.168.0.11:8081' ,
-                            TopicArn: 'arn:aws:sns:us-east-1:027378352884:raspiFaceTextMessage'
-                          }, function (err, data) {
-                            if(err){
-
-                            }else{
-
-                            }
-
-                });
-            }else{
-              speaker.speak('You are not a verified buyer. '+
-              ' Details are sent to seller for futher action.');
-                console.log('+++++++++++++++++++++++++++++++++++++++++++++');
-                console.log('You are not a verified buyer.');
-                console.log('+++++++++++++++++++++++++++++++++++++++++++++');
-                sns.publish({
-                            Message: 'Someone trying to steal your car. http://192.168.0.11:8081' ,
-                            TopicArn: 'arn:aws:sns:us-east-1:027378352884:raspiFaceTextMessage'
-                          }, function (err, data) {
-                            if(err){
-
-                            }else{
-
-                            }
-
-                });
-            }
-        }
-    })
-
-  }
-  catch(error) {
-    speaker.speak('You tried to scan invalid QR Code');
-  }
-
-});
-
-//to run the program execute
-//RPC_URL="https://sdwwtboydw.localtunnel.me" node .
-
-zbar.stderr.on('data', function(buf) {
-    console.log(buf.toString());
-});
 
 
 thingShadows.on('connect', function() {
@@ -121,5 +56,73 @@ thingShadows.on('connect', function() {
                reported: stateObject.state
             }
          });
+      });
+
+
+      console.log('scan your qr code');
+      zbar.stdout.on('data', function(buf) {
+        console.log('data scanned : ' + buf.toString());
+        try {
+          var code = JSON.parse(buf.toString());
+          verifier.verify(code,function(err,data){
+
+              if(!err){
+                  if(data){
+                      speaker.speak('Congratulations ! Your ownership is verified. '+
+                      'You are being watched for security reasons.');
+                      console.log('+++++++++++++++++++++++++++++++++++++++++++++');
+                      console.log('Congratulations ! Your ownership is verified.');
+                      console.log('+++++++++++++++++++++++++++++++++++++++++++++');
+
+                      thingShadows.update(thingName, {
+                         state: {
+                            desired: {isDoorOpen: true}
+                         }
+                      });
+
+                      sns.publish({
+                                  Message: 'Buyer has opened your garage. http://192.168.0.11:8081' ,
+                                  TopicArn: 'arn:aws:sns:us-east-1:027378352884:raspiFaceTextMessage'
+                                }, function (err, data) {
+                                  if(err){
+
+                                  }else{
+
+                                  }
+
+                      });
+                  }else{
+                    speaker.speak('You are not a verified buyer. '+
+                    ' Details are sent to seller for futher action.');
+                      console.log('+++++++++++++++++++++++++++++++++++++++++++++');
+                      console.log('You are not a verified buyer.');
+                      console.log('+++++++++++++++++++++++++++++++++++++++++++++');
+                      sns.publish({
+                                  Message: 'Someone trying to steal your car. http://192.168.0.11:8081' ,
+                                  TopicArn: 'arn:aws:sns:us-east-1:027378352884:raspiFaceTextMessage'
+                                }, function (err, data) {
+                                  if(err){
+
+                                  }else{
+
+                                  }
+
+                      });
+                  }
+              }
+          })
+
+        }
+        catch(error) {
+          speaker.speak('You tried to scan invalid QR Code');
+        }
+
+      });
+
+      //to run the program execute
+      //RPC_URL="https://sdwwtboydw.localtunnel.me" node .
+
+      zbar.stderr.on('data', function(buf) {
+          console.log(buf.toString());
       });
 });
