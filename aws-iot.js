@@ -4,6 +4,7 @@ var fs =require('fs');
 var thingName ='BlockChainGarage';
 var clientTokenUpdate;
 
+console.log('loading iot ....');
 var thingShadows = awsIot.thingShadow({
       keyPath: './certs/BlockChainGarage.private.key',
   certPath: './certs/BlockChainGarage.cert.pem',
@@ -16,5 +17,5 @@ var thingShadows = awsIot.thingShadow({
 thingShadows.register(thingName, {persistentSubscribe: true},function(){
 		console.log(thingName+ ' registered');
 
-		
+
 	});
