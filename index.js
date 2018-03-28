@@ -11,6 +11,19 @@ const PythonShell = require('python-shell');
 
 const zbar = new Zbar('/dev/video1'); // connected to USB Webcam not Pi Cam
 
+const awsIot = require('aws-iot-device-sdk');
+const fs =require('fs');
+
+const thingShadows = awsIot.thingShadow({
+      keyPath: './certs/BlockChainGarage.private.key',
+  certPath: './certs/BlockChainGarage.cert.pem',
+    caPath: 'r./certs/oot-CA.crt',
+  clientId: 'client12344567',
+  region:'us-east-1',
+  host:'a2c6vtfn7g8m57.iot.us-east-1.amazonaws.com'
+});
+const thingName ='BlockChainGarage';
+var clientTokenUpdate;
 
 console.log('scan your qr code');
 zbar.stdout.on('data', function(buf) {
@@ -26,6 +39,13 @@ zbar.stdout.on('data', function(buf) {
                 console.log('+++++++++++++++++++++++++++++++++++++++++++++');
                 console.log('Congratulations ! Your ownership is verified.');
                 console.log('+++++++++++++++++++++++++++++++++++++++++++++');
+
+                thingShadows.update(thingName, {
+                   state: {
+                      desired: {isDoorOpen: true}
+                   }
+                });
+
                 sns.publish({
                             Message: 'Buyer has opened your garage. http://192.168.0.11:8081' ,
                             TopicArn: 'arn:aws:sns:us-east-1:027378352884:raspiFaceTextMessage'
@@ -71,3 +91,34 @@ zbar.stdout.on('data', function(buf) {
 zbar.stderr.on('data', function(buf) {
     console.log(buf.toString());
 });
+
+
+thingShadows.on('connect', function() {
+        console.log('connected');
+        thingShadows.register(thingName, {persistentSubscribe: true},function(){
+                console.log('Registered');
+               // var currentState = thingShadows.get(thingName);
+                //console.log('current state', currentState);
+                /*clientTokenUpdate = thingShadows.update(thingName, {"state":{"desired":{"isDoorOpen":false}}});
+                if (clientTokenUpdate === null)
+                {
+                        console.log('update shadow failed, operation still in progress');
+                }*/
+        });
+
+
+       thingShadows
+      .on('error', function(error) {
+         console.log('error', error);
+      });
+
+   thingShadows
+      .on('delta', function(thingName, stateObject) {
+         console.log('received delta on ' + thingName + ': ' +
+            JSON.stringify(stateObject));
+         thingShadows.update(thingName, {
+            state: {
+               reported: stateObject.state
+            }
+         });
+      });
