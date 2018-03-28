@@ -10,12 +10,7 @@ const Polly = new AWS.Polly({
     region: 'us-east-1'
 })
 
-// Create the Speaker instance
-const Player = new Speaker({
-  channels: 1,
-  bitDepth: 16,
-  sampleRate: 16000
-})
+
 
 let params = {
     'Text': 'Hi, my name is Dexter.',
@@ -25,6 +20,13 @@ let params = {
 
 
 module.exports.speak = function(text){
+
+  // Create the Speaker instance
+  const Player = new Speaker({
+    channels: 1,
+    bitDepth: 16,
+    sampleRate: 16000
+  })
 
   Polly.synthesizeSpeech({
       'Text': text,
