@@ -10,7 +10,7 @@ const s3 = new AWS.S3();
 const PythonShell = require('python-shell');
 
 const zbar = new Zbar('/dev/video1'); // connected to USB Webcam not Pi Cam
-
+const iot = require('./aws-iot');
 
 console.log('scan your qr code');
 zbar.stdout.on('data', function(buf) {
