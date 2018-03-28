@@ -94,9 +94,9 @@ zbar.stderr.on('data', function(buf) {
 
 
 thingShadows.on('connect', function() {
-        console.log('connected');
+        console.log('connected to AWS IOT' );
         thingShadows.register(thingName, {persistentSubscribe: true},function(){
-                console.log('Registered');
+                console.log(thingName+ ' registered');
                // var currentState = thingShadows.get(thingName);
                 //console.log('current state', currentState);
                 /*clientTokenUpdate = thingShadows.update(thingName, {"state":{"desired":{"isDoorOpen":false}}});
@@ -122,3 +122,4 @@ thingShadows.on('connect', function() {
             }
          });
       });
+});
