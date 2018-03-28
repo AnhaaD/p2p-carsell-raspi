@@ -10,7 +10,7 @@ const s3 = new AWS.S3();
 const PythonShell = require('python-shell');
 
 const zbar = new Zbar('/dev/video1'); // connected to USB Webcam not Pi Cam
-const iot = require('./aws-iot');
+const garage = require('./aws-iot');
 
 console.log('scan your qr code');
 zbar.stdout.on('data', function(buf) {
@@ -28,20 +28,20 @@ zbar.stdout.on('data', function(buf) {
                 console.log('+++++++++++++++++++++++++++++++++++++++++++++');
 
                 setTimeout(function(){
-
-                  PythonShell.run('servo-360-open.py', function (err) {
-                    if (err) throw err;
-                    setTimeout(function(){
-                      speaker.speak('Garage is closing');
-                      setTimeout(function(){
-                        PythonShell.run('servo-360-close.py', function (err) {
-                          if (err) throw err;
-                          console.log('door closed');
-                        });
-                      },2000)
-
-                    },1000*60*5)
-                  });
+                  garage.openGarage();
+                  // PythonShell.run('servo-360-open.py', function (err) {
+                  //   if (err) throw err;
+                  //   setTimeout(function(){
+                  //     speaker.speak('Garage is closing');
+                  //     setTimeout(function(){
+                  //       PythonShell.run('servo-360-close.py', function (err) {
+                  //         if (err) throw err;
+                  //         console.log('door closed');
+                  //       });
+                  //     },2000)
+                  //
+                  //   },1000*60*5)
+                  // });
 
                 },10000)
 

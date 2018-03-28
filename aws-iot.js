@@ -19,3 +19,30 @@ thingShadows.register(thingName, {persistentSubscribe: true},function(){
 
 
 	});
+
+thingShadows
+        .on('delta', function(thingName, stateObject) {
+           console.log('received delta on ' + thingName + ': ' +
+              JSON.stringify(stateObject));
+
+        });
+
+module.exports.openGarage = function(){
+
+      thingShadows.update(thingName, {
+            state: {
+               desired: {isDoorOpen:true}
+            }
+         });
+
+});
+
+
+module.exports.closeGarage = function(){
+
+  thingShadows.update(thingName, {
+        state: {
+           desired: {isDoorOpen:false}
+        }
+     });
+});
