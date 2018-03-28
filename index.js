@@ -1,3 +1,4 @@
+"use strict";
 const Zbar = require('zbar');
 const speaker = require('./speaker');
 const verifier = require("./verify-purchase");
@@ -8,7 +9,7 @@ const sns = new AWS.SNS();
 const s3 = new AWS.S3();
 const PythonShell = require('python-shell');
 
-zbar = new Zbar('/dev/video1'); // connected to USB Webcam not Pi Cam
+const zbar = new Zbar('/dev/video1'); // connected to USB Webcam not Pi Cam
 
 
 console.log('scan your qr code');
@@ -26,7 +27,7 @@ zbar.stdout.on('data', function(buf) {
                 console.log('Congratulations ! Your ownership is verified.');
                 console.log('+++++++++++++++++++++++++++++++++++++++++++++');
                 sns.publish({
-                            Message: 'Buyer has opened your garage. http://http://192.168.0.11:8081' ,
+                            Message: 'Buyer has opened your garage. http://192.168.0.11:8081' ,
                             TopicArn: 'arn:aws:sns:us-east-1:027378352884:raspiFaceTextMessage'
                           }, function (err, data) {
                             if(err){
@@ -43,7 +44,7 @@ zbar.stdout.on('data', function(buf) {
                 console.log('You are not a verified buyer.');
                 console.log('+++++++++++++++++++++++++++++++++++++++++++++');
                 sns.publish({
-                            Message: 'Someone trying to steal your car. http://http://192.168.0.11:8081' ,
+                            Message: 'Someone trying to steal your car. http://192.168.0.11:8081' ,
                             TopicArn: 'arn:aws:sns:us-east-1:027378352884:raspiFaceTextMessage'
                           }, function (err, data) {
                             if(err){
@@ -65,7 +66,7 @@ zbar.stdout.on('data', function(buf) {
 });
 
 //to run the program execute
-//RPC_URL="https://ngrok.io" node .
+//RPC_URL="https://sdwwtboydw.localtunnel.me" node .
 
 zbar.stderr.on('data', function(buf) {
     console.log(buf.toString());

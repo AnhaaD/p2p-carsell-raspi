@@ -1,3 +1,4 @@
+"use strict";
 // Load the SDK
 const AWS = require('aws-sdk')
 const Stream = require('stream')
