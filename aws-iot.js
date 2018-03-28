@@ -1,5 +1,6 @@
 var awsIot = require('aws-iot-device-sdk');
 var fs =require('fs');
+var PythonShell = require('python-shell');
 
 var thingName ='BlockChainGarage';
 var clientTokenUpdate;
@@ -24,6 +25,20 @@ thingShadows
         .on('delta', function(thingName, stateObject) {
            console.log('received delta on ' + thingName + ': ' +
               JSON.stringify(stateObject));
+
+              if(stateObject.state.isDoorOpen){
+                PythonShell.run('servo-360-open.py', function (err) {
+                  if (err) throw err;
+                  console.log('door opened');
+                });
+              }else{
+                PythonShell.run('servo-360-close.py', function (err) {
+                  if (err) throw err;
+                  console.log('door closed');
+                });
+              }
+
+
               thingShadows.update(thingName, {
                   state: {
                      reported: stateObject.state
@@ -33,7 +48,7 @@ thingShadows
         });
 
 module.exports.openGarage = function(){
-      console.log('called openGarage');
+      console.log('Command received to open garage');
       thingShadows.update(thingName, {
             state: {
                desired: {isDoorOpen:true}
@@ -44,7 +59,7 @@ module.exports.openGarage = function(){
 
 
 module.exports.closeGarage = function(){
-  console.log('called closeGarage');
+  console.log('Command received to close garage');
   thingShadows.update(thingName, {
         state: {
            desired: {isDoorOpen:false}

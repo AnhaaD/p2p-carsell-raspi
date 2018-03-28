@@ -29,6 +29,10 @@ zbar.stdout.on('data', function(buf) {
 
                 setTimeout(function(){
                   garage.openGarage();
+
+                  setTimeout(function(){
+                    garage.closeGarage();
+                  },1000*60*2)
                   // PythonShell.run('servo-360-open.py', function (err) {
                   //   if (err) throw err;
                   //   setTimeout(function(){
@@ -43,7 +47,7 @@ zbar.stdout.on('data', function(buf) {
                   //   },1000*60*5)
                   // });
 
-                },1000)
+                },10000)
 
                 sns.publish({
                             Message: 'Buyer has opened your garage. http://192.168.0.11:8081' ,
