@@ -30,22 +30,10 @@ zbar.stdout.on('data', function(buf) {
                 setTimeout(function(){
                   garage.openGarage();
 
-                  setTimeout(function(){
-                    garage.closeGarage();
-                  },1000*60*2)
-                  // PythonShell.run('servo-360-open.py', function (err) {
-                  //   if (err) throw err;
-                  //   setTimeout(function(){
-                  //     speaker.speak('Garage is closing');
-                  //     setTimeout(function(){
-                  //       PythonShell.run('servo-360-close.py', function (err) {
-                  //         if (err) throw err;
-                  //         console.log('door closed');
-                  //       });
-                  //     },2000)
-                  //
-                  //   },1000*60*5)
-                  // });
+                    setTimeout(function(){
+                      garage.closeGarage();
+                    },1000*60*2)
+
 
                 },10000)
 
