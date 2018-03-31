@@ -51,6 +51,12 @@ http://<YOUR_RASPBERRY_IP>:8081/
 You should see your camera in the list. I am using Creative Technology, Ltd Live! Cam Sync HD
 
 - Install `zbar` software which will scan the QR Code
+```
+sudo apt-get install zbar-tools flite
+sudo apt-get install python-qrtools
+sudo apt-get install libzbar-dev
+sudo pip install zbar
+```
 
 
 
