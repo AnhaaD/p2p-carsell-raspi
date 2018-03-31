@@ -37,12 +37,13 @@ Once Pi has been rebooted, paste below address on your computer browser to make 
 
 http://<YOUR_RASPBERRY_IP>:8081/
 
-- Plug in USB Webcamera to your Raspberry Pi 
+- Plug in USB Webcamera to your Raspberry Pi which will be used to scan QR code on /dev/video1. Then issue below commands.
 ``` type below command to make sure your USB camera is recognized by Pi
     $ lsusb
+    $ ls -lrt /dev/video1
 ```
  
-![alt tag](https://user-images.githubusercontent.com/9275193/38164609-309f693c-34d5-11e8-9c84-798acdbca9a5.png)
+![alt tag](https://user-images.githubusercontent.com/9275193/38164659-a2be7724-34d5-11e8-8c05-4b08820f4c48.png)
 You should see your camera in the list. I am using Creative Technology, Ltd Live! Cam Sync HD
 
 
