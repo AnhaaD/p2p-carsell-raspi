@@ -68,8 +68,33 @@ sudo pip install awscli
 aws configure
 Your user should have permisson for AWS Polly, SNS and IOT
 ```
-- Create IOT Object on AWS Console 
-- Cretae SNS Topic and Subscription to receive SMS
+- Create IOT Object on AWS Console. Update below code (aws-iot.js) with your IoT name and certificates
+```
+var thingName ='BlockChainGarage';
+
+var thingShadows = awsIot.thingShadow({
+      keyPath: './certs/BlockChainGarage.private.key',
+  certPath: './certs/BlockChainGarage.cert.pem',
+    caPath: './certs/root-CA.crt',
+  clientId: 'client12344567',
+  region:'us-east-1',
+  host:'a2c6vtfn7g8m57.iot.us-east-1.amazonaws.com'
+});
+```
+- Cretae SNS Topic and Subscription to receive SMS. Update below code with your SNS URN and update Raspberry IP
+```
+sns.publish({
+                            Message: 'Buyer has opened your garage. http://192.168.0.11:8081' ,
+                            TopicArn: 'arn:aws:sns:us-east-1:027378352884:p2pCarSell'
+                          }, function (err, data) {
+                            if(err){
+
+                            }else{
+
+                            }
+
+                });
+```
 
 
 
