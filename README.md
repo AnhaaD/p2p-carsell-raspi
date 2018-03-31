@@ -57,6 +57,11 @@ sudo apt-get install python-qrtools
 sudo apt-get install libzbar-dev
 sudo pip install zbar
 ```
+To make sure zbar installed properly, execute below command on your pi and then bring a sample QR code in front of the webcam. Webcam should be able to decode the QR code.
+
+```
+zbarcam --nodisplay --raw /dev/video1
+```
 
 
 
