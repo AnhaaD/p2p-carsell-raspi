@@ -68,7 +68,8 @@ sudo pip install awscli
 aws configure
 Your user should have permisson for AWS Polly, SNS and IOT
 ```
-
+- Create IOT Object on AWS Console 
+- Cretae SNS Topic and Subscription to receive SMS
 
 
 
