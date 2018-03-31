@@ -62,6 +62,12 @@ To make sure zbar installed properly, execute below command on your pi and then 
 ```
 zbarcam --nodisplay --raw /dev/video1
 ```
+- Install AWS CLI and Configure
+```
+sudo pip install awscli
+aws configure
+Your user should have permisson for AWS Polly, SNS and IOT
+```
 
 
 
