@@ -81,19 +81,17 @@ var thingShadows = awsIot.thingShadow({
   host:'a2c6vtfn7g8m57.iot.us-east-1.amazonaws.com'
 });
 ```
-- Cretae SNS Topic and Subscription to receive SMS. Update below code with your SNS URN and update Raspberry IP
+- Cretae SNS Topic and Subscription to receive SMS. Update below code (index.js) with your SNS URN and update Raspberry IP
 ```
 sns.publish({
-                            Message: 'Buyer has opened your garage. http://192.168.0.11:8081' ,
-                            TopicArn: 'arn:aws:sns:us-east-1:027378352884:p2pCarSell'
-                          }, function (err, data) {
-                            if(err){
+  Message: 'Buyer has opened your garage. http://192.168.0.11:8081' ,
+  TopicArn: 'arn:aws:sns:us-east-1:027378352884:p2pCarSell'
+  }, function (err, data) {
+        if(err){
+        }else{
+        }
 
-                            }else{
-
-                            }
-
-                });
+  });
 ```
 
 
