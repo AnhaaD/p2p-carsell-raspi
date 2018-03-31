@@ -31,6 +31,10 @@ sudo nano /etc/modules
 At the end of the file add below 
 bcm2835-v4l2
 Ctrl+X , then Y to come out of nano
+sudo mkdir /var/lib/motion
+sudo chown motion:motion /var/lib/motion
+sudo nano /etc/default/motion
+change the value to yes for the demon to run on startup 
 sudo reboot
 ```
 Once Pi has been rebooted, paste below address on your computer browser to make sure motion is working. You should see live stream from your pi camera.
@@ -45,5 +49,9 @@ http://<YOUR_RASPBERRY_IP>:8081/
  
 ![alt tag](https://user-images.githubusercontent.com/9275193/38164659-a2be7724-34d5-11e8-8c05-4b08820f4c48.png)
 You should see your camera in the list. I am using Creative Technology, Ltd Live! Cam Sync HD
+
+- Install `zbar` software which will scan the QR Code
+
+
 
 
